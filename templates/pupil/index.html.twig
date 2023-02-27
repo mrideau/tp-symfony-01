@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pupil index{% endblock %}
+
+{% block body %}
+    <h1>Pupil index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Birthdate</th>
+                <th>Classroom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pupil in pupils %}
+            <tr>
+                <td>{{ pupil.id }}</td>
+                <td>{{ pupil.firstname }}</td>
+                <td>{{ pupil.lastname }}</td>
+                <td>{{ pupil.birthdate ? pupil.birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ pupil.classroom.name }}</td>
+                <td>
+                    <a href="{{ path('app_pupil_show', {'id': pupil.id}) }}">show</a>
+                    <a href="{{ path('app_pupil_edit', {'id': pupil.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_pupil_new') }}">Create new</a>
+{% endblock %}
